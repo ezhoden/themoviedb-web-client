@@ -6,7 +6,7 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
-        disableHostCheck: true
+        historyApiFallback: true
     },
     plugins: [
         new MiniCssExtractPlugin({
