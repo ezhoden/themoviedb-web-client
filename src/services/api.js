@@ -1,7 +1,16 @@
-import API_KEY from '../constants/config.js'
+import { API_KEY, API_ROOT } from '../constants/apiConfig.js'
 
-const API_ROOT = 'https://api.themoviedb.org/3/';
+const callApi = async (url) => (await fetch(url)).json();
 
-const callApi = async (url) => (await fetch(API_ROOT + url + `?api_key=${API_KEY}`)).json();
+export const getTrendingFilms = (type = 'all', period = 'week') => 
+    callApi(`${API_ROOT}trending/${type}/${period}?api_key=${API_KEY}`);
 
-export const getTrendingFilms = (type, period) => callApi(`trending/${type ? type : 'all'}/${period ? period : 'week'}`);
+export const getSearchedFilms = (search) => {
+    const link = `${API_ROOT}search/movie?api_key=${API_KEY}&query=${search}`;
+    console.log(link)
+    return callApi(link);
+}
+    
+const getLink = (params) => {
+
+}

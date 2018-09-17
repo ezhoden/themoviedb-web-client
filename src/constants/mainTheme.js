@@ -10,6 +10,6 @@ export default {
     green: '#56B68B',
     rose: '#E96875',
     darkBlue: '#476D96',
-
+    
 };
 
