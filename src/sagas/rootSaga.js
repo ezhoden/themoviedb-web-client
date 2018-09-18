@@ -1,16 +1,16 @@
-import { put, takeLatest, takeEvery, all, call } from 'redux-saga/effects';
+import { put, takeLatest, throttle, all, call } from 'redux-saga/effects';
 import actionTypes from '../constants/actionTypes.js';
 import { getTrendingFilms, getSearchedFilms } from '../services/api.js'
-import { requestTrendingFilms, requestTrendingFilmsSucceded, requestTrendingFilmsFailed } from '../actions/getTrendingFilms.js';
-import { requestSearchFilms, requestSearchFilmsSucceded, requestSearchFilmsFailed } from '../actions/getSearchedFilms.js';
+import * as api from '../actions/apiActions.js';
 
-function* fetchFilms() {
+function* fetchFilms(params) {
     try {
-        yield put(requestTrendingFilms());
-        const data = yield call(() => getTrendingFilms());
-        yield put(requestTrendingFilmsSucceded(data.results));
+        yield put(api.requestTrendingFilms());
+        const data = yield call(() => getTrendingFilms(params.payload));
+        yield put(api.requestTrendingFilmsSucceded(data.results));
     } catch (e) {
-        yield put(requestTrendingFilmsFailed(data.results));
+        console.log(e)
+        yield put(api.requestTrendingFilmsFailed(data.results));
     }
 }
 
@@ -21,19 +21,20 @@ function* watchFetchFilms() {
 function* searchFilms(search) {
     try {
         if (search.payload.length > 0) {
-            yield put(requestSearchFilms());
-            const data = yield call(getSearchedFilms, search.payload);
-            yield put(requestSearchFilmsSucceded(data.results));
+            yield put(api.requestSearchFilms());
+            const data = yield call(getSearchedFilms, { query: search.payload });
+            console.log(data)
+            yield put(api.requestSearchFilmsSucceded(data.results));
         } else {
             yield call(fetchFilms);
         }
     } catch (e) {
-        yield put(requestSearchFilmsFailed(data.results));
+        yield put(api.requestSearchFilmsFailed(data.results));
     }
 }
 
 function* watchSearchFilms() {
-    yield takeEvery(actionTypes.FETCH_SEARCHING_FILMS, searchFilms);
+    yield throttle(1000, actionTypes.FETCH_SEARCHING_FILMS, searchFilms);
 }
 
 export default function* rootSaga() {

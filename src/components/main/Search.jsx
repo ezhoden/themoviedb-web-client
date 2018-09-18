@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { searchFilms } from '../../actions/getSearchedFilms.js';
+import { searchFilms } from '../../actions/apiActions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { changeSearchQuery } from '../../actions/searchQueryActions.js';
 
 const SearchWrapper = styled.input`
     width: 70vw;
@@ -11,35 +12,29 @@ const SearchWrapper = styled.input`
     border-radius: 8px;
 `;
 
+const mapStateToProps = (state) => ({
+    searchQuery: state.searchQuery
+});
+
 const mapDispatchToProps = (dispatch) => ({
-    searchFilms: bindActionCreators(searchFilms, dispatch)
-})
+    searchFilms: bindActionCreators(searchFilms, dispatch),
+    changeSearchQuery: bindActionCreators(changeSearchQuery, dispatch)
+});
 
 class Search extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            searchQuery: '' 
-        };
-    }
-
-    handleSearchInputChange = (e) => {
-        this.setState(
-            { searchQuery: e.target.value},
-            () => this.props.searchFilms(this.state.searchQuery)
-        )
-    }
+    handleSearchInputChange = (e) =>
+        this.props.searchFilms((this.props.changeSearchQuery(e.target.value).payload));
 
     render() {
         return (
             <SearchWrapper
                 placeholder="Search for a movie"
-                onKeyUp={this.handleSearchInputChange} />
-        )
+                onChange={this.handleSearchInputChange} />
+        );
     }
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
-)(Search)
+)(Search);
