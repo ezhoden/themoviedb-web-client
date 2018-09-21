@@ -10,7 +10,7 @@ const FilmListWrapper = styled.div`
 
 const FilmList = ({ films }) => (
     <FilmListWrapper>
-        {films.map((film) => <Film key={film.id} film={film} />)}
+        {films.map((film, index) => <Film key={index} film={film} />)}
     </FilmListWrapper>
 )
 

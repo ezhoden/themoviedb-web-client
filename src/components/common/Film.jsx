@@ -1,16 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { API_IMG_ROOT, API_IMG_SIZES } from '../../constants/apiConfig.js';
+import Card from '../common/Card.jsx';
 
-const FilmWrapper = styled.div`
-    display: flex;
+const FilmWrapper = styled(Card)`
     flex-direction: column;
     height: 400px;
     width: 250px;
-    padding: 16px;
     margin: 16px;
-    border-radius: 8px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 `;
 
 const FilmPoster = styled.img`

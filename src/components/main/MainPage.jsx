@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import Search from './Search.jsx';
 import FilmListTitle from './FilmListTitle.jsx';
 
+import get from 'lodash-es/get';
+
 const MainPageWrapper = styled.div`
     display: flex;
     flex-direction: column;

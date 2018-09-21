@@ -13,10 +13,6 @@ function* fetchFilms(params) {
     }
 }
 
-function* watchFetchFilms() {
-    yield takeLatest(actionTypes.FETCH_TRENDING_FILMS, fetchFilms);
-}
-
 function* searchFilms(search) {
     try {
         if (search.payload.query.length > 0) {
@@ -34,6 +30,10 @@ function* searchFilms(search) {
 function* newSearch(search) {
     yield put(api.requestNewFilmsSearch());
     yield call(searchFilms, search);
+}
+
+function* watchFetchFilms() {
+    yield takeLatest(actionTypes.FETCH_TRENDING_FILMS, fetchFilms);
 }
 
 function* watchSearchFilms() {
