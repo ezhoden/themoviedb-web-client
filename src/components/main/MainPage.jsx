@@ -36,7 +36,7 @@ class MainPage extends React.Component {
     handleInfiniteScroll = () => {
         if (this.isScrolledToBottom()) {
             this.props.searchQuery.length > 0 ?
-                this.props.searchFilms(/*{ query: this.props.searchQuery, page: this.props.apiReducer.page }*/) :
+                this.props.searchFilms({ query: this.props.searchQuery, page: this.props.apiReducer.page }) :
                 this.props.fetchTrendingFilms({ page: this.props.apiReducer.page })
         }
     }

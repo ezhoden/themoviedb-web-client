@@ -59,6 +59,13 @@ const apiReducer = (state = initialState, action) => {
                 loading: state.loading,
                 error: state.error
             };
+        case actionTypes.FETCH_NEW_FILMS_SEARCH:
+            return {
+                films: [],
+                page: 1,
+                loading: state.loading,
+                error: state.error
+            };
         default:
             return state;
     }

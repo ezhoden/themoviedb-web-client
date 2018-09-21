@@ -1,5 +1,9 @@
 import actionTypes from '../constants/actionTypes';
 
+export const fetchNewFilmsSearch = (params) => ({ type: actionTypes.FETCH_NEW_FILMS_SEARCH, payload: params });
+
+export const requestNewFilmsSearch = (params) => ({ type: actionTypes.REQUEST_NEW_FILMS_SEARCH, payload: params });
+
 export const searchFilms = (params) => ({ type: actionTypes.FETCH_SEARCHING_FILMS, payload: params });
 
 export const requestSearchFilms = () => ({ type: actionTypes.REQUEST_SEARCH_FILMS });

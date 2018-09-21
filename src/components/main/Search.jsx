@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { searchFilms } from '../../actions/apiActions.js';
+import { fetchNewFilmsSearch } from '../../actions/apiActions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeSearchQuery } from '../../actions/searchQueryActions.js';
@@ -17,13 +17,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    searchFilms: bindActionCreators(searchFilms, dispatch),
+    fetchNewFilmsSearch: bindActionCreators(fetchNewFilmsSearch, dispatch),
     changeSearchQuery: bindActionCreators(changeSearchQuery, dispatch)
 });
 
 class Search extends React.Component {
     handleSearchInputChange = (e) =>
-        this.props.searchFilms((this.props.changeSearchQuery(e.target.value).payload));
+        this.props.fetchNewFilmsSearch({ query: (this.props.changeSearchQuery(e.target.value).payload), page: 1 });
 
     render() {
         return (

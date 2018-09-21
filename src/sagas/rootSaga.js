@@ -6,10 +6,9 @@ import * as api from '../actions/apiActions.js';
 function* fetchFilms(params) {
     try {
         yield put(api.requestTrendingFilms());
-        const data = yield call(() => getTrendingFilms(params.payload));
+        const data = yield call(() => getTrendingFilms(params ? params.payload : { page: 1 }));
         yield put(api.requestTrendingFilmsSucceded(data.results));
     } catch (e) {
-        console.log(e)
         yield put(api.requestTrendingFilmsFailed(data.results));
     }
 }
@@ -20,10 +19,9 @@ function* watchFetchFilms() {
 
 function* searchFilms(search) {
     try {
-        if (search.payload.length > 0) {
+        if (search.payload.query.length > 0) {
             yield put(api.requestSearchFilms());
-            const data = yield call(getSearchedFilms, { query: search.payload });
-            console.log(data)
+            const data = yield call(getSearchedFilms, search.payload);
             yield put(api.requestSearchFilmsSucceded(data.results));
         } else {
             yield call(fetchFilms);
@@ -33,13 +31,23 @@ function* searchFilms(search) {
     }
 }
 
+function* newSearch(search) {
+    yield put(api.requestNewFilmsSearch());
+    yield call(searchFilms, search);
+}
+
 function* watchSearchFilms() {
-    yield throttle(1000, actionTypes.FETCH_SEARCHING_FILMS, searchFilms);
+    yield takeLatest(actionTypes.FETCH_SEARCHING_FILMS, searchFilms);
+}
+
+function* watchNewFilmsSearch() {
+    yield throttle(1000, actionTypes.FETCH_NEW_FILMS_SEARCH, newSearch);
 }
 
 export default function* rootSaga() {
     yield all([
         watchFetchFilms(),
-        watchSearchFilms()
+        watchSearchFilms(),
+        watchNewFilmsSearch()
     ])
 }
