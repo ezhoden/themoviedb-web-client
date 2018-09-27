@@ -1,6 +1,6 @@
 import actionTypes from '../constants/actionTypes';
 
-const searchQuery = (state = '', action) => {
+const searchQueryReducer = (state = '', action) => {
     switch (action.type) {
         case actionTypes.CHANGE_SEARCH_QUERY:
             return action.payload;
@@ -9,4 +9,4 @@ const searchQuery = (state = '', action) => {
     }
 }
 
-export default searchQuery;
+export default searchQueryReducer;

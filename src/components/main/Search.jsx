@@ -6,10 +6,17 @@ import { bindActionCreators } from 'redux';
 import { changeSearchQuery } from '../../actions/searchQueryActions.js';
 
 const SearchWrapper = styled.input`
-    width: 70vw;
-    padding: 8px;
-    border: 1px lightgray solid;
-    border-radius: 8px;
+    width: 50vw;
+    margin: 16px;
+    padding: 12px;
+    font-size: ${({ theme }) => theme.defaultTextSize};
+    border: ${({ theme }) => theme.defaultBorder};
+    border-radius: ${({ theme }) => theme.defaultBorderRadius};
+    outline: none;
+
+    &:focus {
+        border-color: ${({ theme }) => theme.lightBlue};
+    }
 `;
 
 const mapStateToProps = (state) => ({
@@ -23,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Search extends React.Component {
     handleSearchInputChange = (e) =>
-        this.props.fetchNewFilmsSearch({ query: (this.props.changeSearchQuery(e.target.value).payload), page: 1 });
+        this.props.fetchNewFilmsSearch({ query: this.props.changeSearchQuery(e.target.value).payload, page: 1 });
 
     render() {
         return (

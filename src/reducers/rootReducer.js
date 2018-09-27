@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import apiReducer from './apiReducer.js';
-import searchQuery from './searchQuery.js';
+import searchQueryReducer from './searchQueryReducer.js';
+import navigationReducer from './navigationReducer.js';
 
 export default combineReducers({
     apiReducer,
-    searchQuery
+    searchQueryReducer,
+    navigationReducer
 });

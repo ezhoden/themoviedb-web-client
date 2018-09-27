@@ -10,6 +10,10 @@ export default {
     green: '#56B68B',
     rose: '#E96875',
     darkBlue: '#476D96',
-    
+    defaultShadow: '0 0 2px rgba(0, 0, 0, 0.2)',
+    defaultBorder: '1px lightgray solid',
+    defaultBorderRadius: '8px',
+    defaultTextSize: '14px',
+    defaultTitleSize: '18px'
 };
 

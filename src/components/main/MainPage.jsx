@@ -2,22 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import FilmList from './FilmList.jsx';
-import { fetchTrendingFilms, searchFilms } from '../../actions/apiActions.js';
+import { fetchTrendingFilms, searchFilms } from '../../actions/apiActions';
 import { bindActionCreators } from 'redux';
 import Search from './Search.jsx';
-import FilmListTitle from './FilmListTitle.jsx';
+import { Redirect }from 'react-router-dom';
 
 import get from 'lodash-es/get';
 
 const MainPageWrapper = styled.div`
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: ${({ theme }) => theme.altGray};
 `;
 
 const mapStateToProps = (state) => ({
     apiReducer: state.apiReducer,
-    searchQuery: state.searchQuery
+    searchQueryReducer: state.searchQueryReducer,
+    navigationReducer: state.navigationReducer
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -37,30 +41,33 @@ class MainPage extends React.Component {
 
     handleInfiniteScroll = () => {
         if (this.isScrolledToBottom()) {
-            this.props.searchQuery.length > 0 ?
-                this.props.searchFilms({ query: this.props.searchQuery, page: this.props.apiReducer.page }) :
+            this.props.searchQueryReducer.length > 0 ?
+                this.props.searchFilms({ query: this.props.searchQueryReducer, page: this.props.apiReducer.page }) :
                 this.props.fetchTrendingFilms({ page: this.props.apiReducer.page })
         }
     }
 
     isScrolledToBottom = () => {
-        const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+        const scrollTop = get(document, 'documentElement.scrollTop') || document.body.scrollTop;
+        const scrollHeight = get(document, 'documentElement.scrollHeight') || document.body.scrollHeight;
         const clientHeight = document.documentElement.clientHeight || window.innerHeight;
         return Math.ceil(scrollTop + clientHeight) >= scrollHeight;
     }
 
+    redirectToMovie = () => <Redirect to={this.props.navigationReducer.currentPath} />
+
     render() {
         return (
             <MainPageWrapper>
+                {this.props.navigationReducer.currentPath !== '/' && this.redirectToMovie()}
                 <Search />
-                <FilmListTitle>{this.props.apiReducer.films.length}</FilmListTitle>
                 <FilmList films={this.props.apiReducer.films} />
             </MainPageWrapper>
-        )
+        );
     }
 }
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(MainPage);

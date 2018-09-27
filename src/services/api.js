@@ -2,22 +2,14 @@ import { API_KEY, API_ROOT } from '../constants/apiConfig.js';
 
 const callApi = async (url) => (await fetch(url)).json();
 
-export const getTrendingFilms = (params) => {
-    const link = `${API_ROOT}trending/all/week?api_key=${API_KEY}${getLink(params)}`;
-    return callApi(link);
-}
-   
+export const getTrendingFilms = (params) => callApi(`${API_ROOT}/trending/movie/week?api_key=${API_KEY}${getLink(params)}`);
 
-export const getSearchedFilms = (params) => {
-    const link = `${API_ROOT}search/movie?api_key=${API_KEY}${getLink(params)}`;
-    console.log(link)
-    return callApi(link);
-}
+export const getSearchedFilms = (params) => callApi(`${API_ROOT}/search/movie?api_key=${API_KEY}${getLink(params)}`);
     
 const getLink = (params) => {
-    let query = '';
+    let link = '';
     params && Object.keys(params).map((key) => {
-        query += `&${key}=${params[key]}`
+        link += `&${key}=${params[key]}`
     });
-    return query;
+    return link;
 }

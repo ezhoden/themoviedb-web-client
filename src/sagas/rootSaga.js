@@ -49,5 +49,5 @@ export default function* rootSaga() {
         watchFetchFilms(),
         watchSearchFilms(),
         watchNewFilmsSearch()
-    ])
+    ]);
 }

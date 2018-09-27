@@ -12,6 +12,6 @@ const FilmList = ({ films }) => (
     <FilmListWrapper>
         {films.map((film, index) => <Film key={index} film={film} />)}
     </FilmListWrapper>
-)
+);
 
 export default FilmList;
