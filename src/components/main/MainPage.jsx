@@ -5,7 +5,6 @@ import FilmList from './FilmList.jsx';
 import { fetchTrendingFilms, searchFilms } from '../../actions/apiActions';
 import { bindActionCreators } from 'redux';
 import Search from './Search.jsx';
-import { Redirect }from 'react-router-dom';
 
 import get from 'lodash-es/get';
 
@@ -20,8 +19,7 @@ const MainPageWrapper = styled.div`
 
 const mapStateToProps = (state) => ({
     apiReducer: state.apiReducer,
-    searchQueryReducer: state.searchQueryReducer,
-    navigationReducer: state.navigationReducer
+    searchQueryReducer: state.searchQueryReducer
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -54,12 +52,9 @@ class MainPage extends React.Component {
         return Math.ceil(scrollTop + clientHeight) >= scrollHeight;
     }
 
-    redirectToMovie = () => <Redirect to={this.props.navigationReducer.currentPath} />
-
     render() {
         return (
             <MainPageWrapper>
-                {this.props.navigationReducer.currentPath !== '/' && this.redirectToMovie()}
                 <Search />
                 <FilmList films={this.props.apiReducer.films} />
             </MainPageWrapper>

@@ -1,5 +1,5 @@
 export default {
-    fontFamily: '\'Roboto\', sans-serif',
+    black: '#000',
     primaryColor: '#FF9E47',
     darkGray: 'rgba(74, 74, 74, 1)',
     mediumGray: 'rgba(74, 74, 74, 0.7)',
