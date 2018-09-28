@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import FilmList from './FilmList.jsx';
-import { fetchTrendingFilms, searchFilms } from '../../actions/apiActions';
 import { bindActionCreators } from 'redux';
-import Search from './Search.jsx';
-
 import get from 'lodash-es/get';
+
+import { requestMovie } from '../../actions/apiActions';
+import MovieList from './MovieList';
+import Search from './Search';
 
 const MainPageWrapper = styled.div`
     min-height: 100vh;
@@ -17,19 +17,17 @@ const MainPageWrapper = styled.div`
     background-color: ${({ theme }) => theme.altGray};
 `;
 
-const mapStateToProps = (state) => ({
-    apiReducer: state.apiReducer,
-    searchQueryReducer: state.searchQueryReducer
+const mapStateToProps = ({ searchMovieApi }) => ({
+    searchMovieApi
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchTrendingFilms: bindActionCreators(fetchTrendingFilms, dispatch),
-    searchFilms: bindActionCreators(searchFilms, dispatch)
+    requestMovie: bindActionCreators(requestMovie, dispatch)
 });
 
 class MainPage extends React.Component {
     componentDidMount() {
-        this.props.fetchTrendingFilms();
+        this.props.requestMovie();
         window.addEventListener('scroll', this.handleInfiniteScroll);
     }
 
@@ -39,24 +37,26 @@ class MainPage extends React.Component {
 
     handleInfiniteScroll = () => {
         if (this.isScrolledToBottom()) {
-            this.props.searchQueryReducer.length > 0 ?
-                this.props.searchFilms({ query: this.props.searchQueryReducer, page: this.props.apiReducer.page }) :
-                this.props.fetchTrendingFilms({ page: this.props.apiReducer.page })
+            this.props.requestMovie(
+                this.props.searchMovieApi.page + 1, 
+                this.props.searchMovieApi.type, 
+                this.props.searchMovieApi.query
+            );
         }
-    }
+    };
 
     isScrolledToBottom = () => {
         const scrollTop = get(document, 'documentElement.scrollTop') || document.body.scrollTop;
         const scrollHeight = get(document, 'documentElement.scrollHeight') || document.body.scrollHeight;
         const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-        return Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-    }
+        return Math.ceil(scrollTop + clientHeight) + 1 >= scrollHeight;
+    };
 
     render() {
         return (
             <MainPageWrapper>
                 <Search />
-                <FilmList films={this.props.apiReducer.films} />
+                <MovieList movies={this.props.searchMovieApi.results} />
             </MainPageWrapper>
         );
     }

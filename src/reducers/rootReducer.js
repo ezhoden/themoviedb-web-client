@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import apiReducer from './apiReducer.js';
-import searchQueryReducer from './searchQueryReducer.js';
+
+import searchMovieApi from './searchMovieApi';
 
 export default combineReducers({
-    apiReducer,
-    searchQueryReducer
+    searchMovieApi
 });

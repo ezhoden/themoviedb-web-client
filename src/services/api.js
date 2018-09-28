@@ -1,4 +1,4 @@
-import { API_KEY, API_ROOT } from '../constants/apiConfig.js';
+import { API_KEY, API_ROOT } from '../constants/apiConfig';
 
 const callApi = async (url) => (await fetch(url)).json();
 

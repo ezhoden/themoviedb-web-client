@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { fetchNewFilmsSearch } from '../../actions/apiActions.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeSearchQuery } from '../../actions/searchQueryActions.js';
+
+import { requestMovie, searchQueryChanged } from '../../actions/apiActions';
+import requestTypes from '../../constants/requestTypes';
 
 const SearchWrapper = styled.input`
     width: 50vw;
@@ -24,13 +25,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchNewFilmsSearch: bindActionCreators(fetchNewFilmsSearch, dispatch),
-    changeSearchQuery: bindActionCreators(changeSearchQuery, dispatch)
+    requestMovie: bindActionCreators(requestMovie, dispatch),
+    searchQueryChanged: bindActionCreators(searchQueryChanged, dispatch)
 });
 
 class Search extends React.Component {
-    handleSearchInputChange = (e) =>
-        this.props.fetchNewFilmsSearch({ query: this.props.changeSearchQuery(e.target.value).payload, page: 1 });
+    handleSearchInputChange = (e) => {
+        const inputValue = this.props.searchQueryChanged(e.target.value).payload;
+        const searchType = inputValue.length > 0 ? requestTypes.SEARCH : requestTypes.TRENDS;
+        this.props.requestMovie(1, searchType, inputValue);
+    }
+        
 
     render() {
         return (

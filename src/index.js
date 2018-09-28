@@ -5,11 +5,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from './reducers/rootReducer.js';
-import App from './components/App.jsx';
 import 'babel-polyfill';
-import rootSaga from './sagas/rootSaga.js';
 
+import App from './components/App.jsx';
+import rootReducer from './reducers/rootReducer.js';
+import rootSaga from './sagas/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
