@@ -13,10 +13,13 @@ const initialState = {
 const searchMovieApi = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.MOVIE_REQUESTED:
+            const { query, requestType } = action.payload;
             return {
                 ...state,
+                query,
                 loading: true,
-                type: action.payload.requestType
+                type: requestType,
+                results: query === state.query ? state.results : []
             };
         case actionTypes.MOVIE_SUCCEEDED:
             const { page, results } = action.payload;
@@ -30,12 +33,6 @@ const searchMovieApi = (state = initialState, action) => {
             return {
                 ...state,
                 error: true
-            };
-        case actionTypes.SEARCH_QUERY_CHANGED:
-            return {
-                ...state,
-                query: action.payload,
-                results: []
             };
         default:
             return state;

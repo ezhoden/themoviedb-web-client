@@ -37,11 +37,8 @@ class MainPage extends React.Component {
 
     handleInfiniteScroll = () => {
         if (this.isScrolledToBottom()) {
-            this.props.requestMovie(
-                this.props.searchMovieApi.page + 1, 
-                this.props.searchMovieApi.type, 
-                this.props.searchMovieApi.query
-            );
+            const { page, type, query } = this.props.searchMovieApi;
+            this.props.requestMovie(page + 1, type, query);
         }
     };
 

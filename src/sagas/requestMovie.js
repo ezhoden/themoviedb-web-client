@@ -1,26 +1,27 @@
-import { put, takeLatest, throttle, all, call } from 'redux-saga/effects';
+import { put, throttle, call } from 'redux-saga/effects';
 
 import actionTypes from '../constants/actionTypes';
 import { getTrendingFilms, getSearchedFilms } from '../services/api';
 import requestTypes from '../constants/requestTypes';
 
-function* requestMovie(request) {
-    try {
-        const { page, requestType, query} = request.payload;
-        let data;
+function* getMovies(params) {
+    const { page, requestType, query } = params;
         switch(requestType) {
             case requestTypes.TRENDS:
-                data = yield call(getTrendingFilms, { page });
-                break;
+                return yield call(getTrendingFilms, { page });
             case requestTypes.SEARCH:
-                data = yield call(getSearchedFilms, { page, query });
-                break;
+                return yield call(getSearchedFilms, { page, query });
         }
+}
+
+function* requestMovie(request) {
+    try {
+        const { page, results } = yield call(getMovies, request.payload);
         yield put({
             type: actionTypes.MOVIE_SUCCEEDED,
             payload: {
-                page: data.page,
-                results: data.results
+                page,
+                results
             }
         });
     } catch(e) {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestMovie, searchQueryChanged } from '../../actions/apiActions';
+import { requestMovie } from '../../actions/apiActions';
 import requestTypes from '../../constants/requestTypes';
 
 const SearchWrapper = styled.input`
@@ -20,23 +20,17 @@ const SearchWrapper = styled.input`
     }
 `;
 
-const mapStateToProps = (state) => ({
-    searchQuery: state.searchQuery
-});
-
 const mapDispatchToProps = (dispatch) => ({
-    requestMovie: bindActionCreators(requestMovie, dispatch),
-    searchQueryChanged: bindActionCreators(searchQueryChanged, dispatch)
+    requestMovie: bindActionCreators(requestMovie, dispatch)
 });
 
 class Search extends React.Component {
     handleSearchInputChange = (e) => {
-        const inputValue = this.props.searchQueryChanged(e.target.value).payload;
+        const inputValue = e.target.value;
         const searchType = inputValue.length > 0 ? requestTypes.SEARCH : requestTypes.TRENDS;
         this.props.requestMovie(1, searchType, inputValue);
     }
-        
-
+    
     render() {
         return (
             <SearchWrapper
@@ -47,6 +41,6 @@ class Search extends React.Component {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(Search);
