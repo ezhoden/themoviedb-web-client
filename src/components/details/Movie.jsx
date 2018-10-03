@@ -12,16 +12,15 @@ const MovieWrapper = styled(Card)`
     height: 320px;
     min-width: 170px;
     width: 170px;
-    
-    & + & {
-        margin-left: 16px;
-    }
 `;
 
 const LinkWrapper = styled(Link)`
-    margin: 16px;
     text-decoration: none;
     color: ${({ theme }) => theme.black};
+
+    & + & {
+        margin-left: 16px;
+    }
 `;
 
 const MovieImage = styled.img`
@@ -48,7 +47,7 @@ const Movie = ({ movie }) => (
         <MovieWrapper>
             <MovieImage src={getImageResourcePath(movie.poster_path, API_IMG_SIZES.MID)} />
             <MovieName>{movie.title} ({movie.release_date.substr(0, 4)})</MovieName>
-            <MovieCharacter>{movie.rating}</MovieCharacter>
+            <MovieCharacter>{movie.vote_average}</MovieCharacter>
         </MovieWrapper>
     </LinkWrapper>
 );
