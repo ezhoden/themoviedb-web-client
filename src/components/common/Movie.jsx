@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { API_IMG_ROOT, API_IMG_SIZES } from '../../constants/apiConfig';
+import { getImageResourcePath } from '../../utils/resourcePathUtils';
 import Card from '../common/Card';
 
 const MovieWrapper = styled(Card)`
     flex-direction: column;
     height: 400px;
     width: 250px;
-    margin: 16px;
     cursor: pointer;
 `;
 
@@ -19,6 +19,7 @@ const MoviePoster = styled.img`
 `;
 
 const LinkWrapper = styled(Link)`
+    margin: 16px;
     text-decoration: none;
     color: ${({ theme }) => theme.black};
 `;
@@ -38,7 +39,7 @@ const MovieRating = styled.span`
 const Movie = ({ movie }) => (
     <LinkWrapper to={`/movie/${movie.id}`} >
         <MovieWrapper>
-            <MoviePoster src={`${API_IMG_ROOT}/${API_IMG_SIZES.LARGE}/${movie.poster_path}`} />
+            <MoviePoster src={getImageResourcePath(movie.poster_path, API_IMG_SIZES.LARGE)} />
             <MovieTitle>{movie.original_name || movie.title}</MovieTitle>
             <MovieRating>{movie.vote_average}</MovieRating>
         </MovieWrapper>

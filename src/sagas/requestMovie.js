@@ -1,16 +1,16 @@
 import { put, throttle, call } from 'redux-saga/effects';
 
 import actionTypes from '../constants/actionTypes';
-import { getTrendingFilms, getSearchedFilms } from '../services/api';
+import { getTrendingMovies, getSearchedMovies } from '../services/api';
 import requestTypes from '../constants/requestTypes';
 
 function* getMovies(params) {
     const { page, requestType, query } = params;
         switch(requestType) {
             case requestTypes.TRENDS:
-                return yield call(getTrendingFilms, { page });
+                return yield call(getTrendingMovies, { page });
             case requestTypes.SEARCH:
-                return yield call(getSearchedFilms, { page, query });
+                return yield call(getSearchedMovies, { page, query });
         }
 }
 

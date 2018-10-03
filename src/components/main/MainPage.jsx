@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class MainPage extends React.Component {
     componentDidMount() {
-        this.props.requestMovie();
+        this.props.searchMovieApi.results.length == 0 && this.props.requestMovie();
         window.addEventListener('scroll', this.handleInfiniteScroll);
     }
 

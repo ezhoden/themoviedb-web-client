@@ -8,7 +8,7 @@ import DetailsPage from './details/DetailsPage';
 
 injectGlobal`
     body {
-        font-family: 'Mukta', sans-serif;
+        font-family: Mukta, sans-serif;
         margin: 0;
     }
 `;

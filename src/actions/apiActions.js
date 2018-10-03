@@ -9,3 +9,10 @@ export const requestMovie = (page = 1, requestType = requestTypes.TRENDS, query 
         query
     }
 });
+
+export const requestDetails = (movieId) => ({
+    type: actionTypes.DETAILS_REQUESTED,
+    payload: {
+        movieId
+    }
+});
