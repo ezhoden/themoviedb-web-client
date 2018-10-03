@@ -26,7 +26,7 @@ const MoviePoster = styled.img`
     padding: 32px;
 `;
 
-const MovieDetails = ({ movie }) => movie && (
+const MovieDetails = ({ movie }) => movie.details && (
     <MovieDetailsWrapper backdrop={getImageResourcePath(movie.details.backdrop_path)} >
         <MovieDetailsWrapperSolid>
             <MoviePoster src={getImageResourcePath(movie.details.poster_path)} />

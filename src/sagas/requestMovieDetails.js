@@ -1,15 +1,20 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 
 import actionTypes from '../constants/actionTypes';
-import { getMovieDetails } from '../services/api';
+import { getMovieDetails, getMovieRecommendations, getMovieCredits } from '../services/api';
 
 function* requestMovieDetails(request) {
     try {
-        const details = yield call(getMovieDetails, request.payload.movieId);
+        const id = request.payload.movieId;
+        const details = yield call(getMovieDetails, id);
+        const recommendations = yield call(getMovieRecommendations, id);
+        const credits = yield call(getMovieCredits, id);
         yield put({
             type: actionTypes.DETAILS_SUCCEEDED,
             payload: {
-                details
+                details,
+                recommendations,
+                credits
             }
         });
     } catch (e) {

@@ -1,11 +1,22 @@
 import actionTypes from '../constants/actionTypes';
 
-const movieDetailsApi = (state = null, action) => {
+const initialState = {
+    details: null,
+    recommendations: [],
+    credits: null
+};
+
+const movieDetailsApi = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.DETAILS_REQUESTED:
-            return null;
+            return initialState;
         case actionTypes.DETAILS_SUCCEEDED:
-            return action.payload;
+            const { details, recommendations, credits } = action.payload;
+            return {
+                details,
+                recommendations,
+                credits
+            };
         case actionTypes.DETAILS_FAILED:
             return state;
         default:

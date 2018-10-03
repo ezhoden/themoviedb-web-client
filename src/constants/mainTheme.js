@@ -13,6 +13,7 @@ export default {
     defaultShadow: '0 0 2px rgba(0, 0, 0, 0.2)',
     defaultBorder: '1px lightgray solid',
     defaultBorderRadius: '8px',
+    smallTextSize:'12px',
     defaultTextSize: '14px',
     defaultTitleSize: '18px'
 };

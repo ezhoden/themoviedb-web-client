@@ -14,6 +14,9 @@ export const getMovieDetails = (movieId) =>
 export const getMovieRecommendations = (movieId) => 
     callApi(`${API_ROOT}/movie/${movieId}/recommendations?api_key=${API_KEY}`);
 
+export const getMovieCredits = (movieId) => 
+    callApi(`${API_ROOT}/movie/${movieId}/credits?api_key=${API_KEY}`);
+
 const getLink = (params) => {
     let link = '';
     params && Object.keys(params).map((key) => {

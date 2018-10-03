@@ -5,12 +5,15 @@ import { bindActionCreators } from 'redux';
 
 import { requestDetails } from '../../actions/apiActions';
 import MovieDetails from './MovieDetails';
-import HoriontalScroll from './HoriontalScroll';
-
+import Credits from './Credits';
+import Recommendations from './Recommendations';
 
 const DetailsPageWrapper = styled.div`
     background-color: ${({ theme }) => theme.altGray};
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const mapStateToProps = ({ movieDetailsApi }) => ({
@@ -26,13 +29,19 @@ class DetailsPage extends React.Component {
         this.props.requestDetails(this.props.match.params.movieId);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.match.params.movieId !== nextProps.match.params.movieId) {
+            this.props.requestDetails(nextProps.match.params.movieId);
+        }
+     }
+
     render() {
         return (
             <DetailsPageWrapper>
                 <MovieDetails movie={this.props.movieDetailsApi} />
-                <HoriontalScroll>
-                    {this.props.movieDetailsApi}
-                </HoriontalScroll>
+                <Credits credits={this.props.movieDetailsApi.credits} 
+                    movieId={this.props.match.params.movieId} />
+                <Recommendations recommendations={this.props.movieDetailsApi.recommendations.results} />
             </DetailsPageWrapper>
         )
     }
