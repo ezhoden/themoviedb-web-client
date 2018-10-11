@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Movie from '../common/Movie';
+import cardSizes from '../../constants/cardSizes';
+import { getCardData } from '../../utils/cardDataUtils';
+import ClickableVerticalCard from '../common/ClickableVerticalCard';
 
 const MovieListWrapper = styled.div`
     display: flex;
@@ -11,7 +13,14 @@ const MovieListWrapper = styled.div`
 
 const MovieList = ({ movies }) => (
     <MovieListWrapper>
-        {movies.map((movie, index) => <Movie key={index} movie={movie} />)}
+        {movies.map((movie, index) => 
+            <ClickableVerticalCard 
+                key={index} 
+                cardSize={cardSizes.BIG} 
+                data={getCardData(movie)} 
+                link={`/movie/${movie.id}`}
+                clickable={true} />
+        )}
     </MovieListWrapper>
 );
 
