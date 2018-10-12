@@ -7,6 +7,7 @@ export default {
     altGray: '#F3F3F1',
     purple: '#7E6990',
     lightBlue: '#62BAD9',
+    blue: '#62BAFF',
     green: '#56B68B',
     rose: '#E96875',
     darkBlue: '#476D96',

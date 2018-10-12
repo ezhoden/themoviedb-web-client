@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
+import { ModalProvider } from 'styled-react-modal';
 
 import { requestMovie } from '../../actions/apiActions';
 import MovieList from './MovieList';
 import Search from './Search';
+import AuthMenu from './AuthMenu';
 
 const MainPageWrapper = styled.div`
     min-height: 100vh;
@@ -52,14 +54,17 @@ class MainPage extends React.Component {
     render() {
         return (
             <MainPageWrapper>
-                <Search />
-                <MovieList movies={this.props.searchMovieApi.results} />
+                <ModalProvider>
+                    <AuthMenu />
+                    <Search />
+                    <MovieList movies={this.props.searchMovieApi.results} />
+                </ModalProvider>
             </MainPageWrapper>
         );
     }
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     mapDispatchToProps
 )(MainPage);

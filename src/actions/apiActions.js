@@ -16,3 +16,11 @@ export const requestDetails = (movieId) => ({
         movieId
     }
 });
+
+export const requestAuth = (login, password) => ({
+    type: actionTypes.AUTH_REQUESTED,
+    payload: {
+        login,
+        password
+    }
+});
