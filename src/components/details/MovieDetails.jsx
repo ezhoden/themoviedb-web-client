@@ -6,7 +6,7 @@ import MovieDescription from './MovieDescription';
 
 const MovieDetailsWrapper = styled.div`
     width: 100vw;
-    height: 50vh;
+    min-height: 50vh;
     background-image: url(${({ backdrop }) => backdrop});
     background-size: cover;
 `;
@@ -15,6 +15,7 @@ const MovieDetailsWrapperSolid = styled.div`
     background: linear-gradient(to right, rgba(16, 0, 16, 0.7), rgba(16, 0, 16, 0.8));
     height: 100%;
     width: 100%;
+    padding: 16px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,7 +23,7 @@ const MovieDetailsWrapperSolid = styled.div`
 `;
 
 const MoviePoster = styled.img`
-    height: 90%;
+    height: 50vh;
     padding: 32px;
 `;
 

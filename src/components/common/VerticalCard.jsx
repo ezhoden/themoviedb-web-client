@@ -7,7 +7,7 @@ import Card from '../common/Card';
 
 export const VerticalCardWrapper = styled(Card)`
     flex-direction: column;
-    ${({ cardSize }) => cardSize}
+    ${({ cardSize }) => cardSize};
     cursor: ${({clickable}) => clickable && 'pointer'};
 `;
 

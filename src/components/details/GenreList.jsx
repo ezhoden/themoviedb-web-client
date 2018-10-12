@@ -22,7 +22,7 @@ const BoldText = styled(Text)`
 const GenreList = ({ genres }) => (
     <MovieDescriptionWrapper>
         <BoldText>Genres:</BoldText>
-        {genres.map((genre) => <Text key={genre.id}>- {genre.name}</Text>)}
+        {genres.map((genre) => <li key={genre.id}>{genre.name}</li>)}
     </MovieDescriptionWrapper>
 );
 
