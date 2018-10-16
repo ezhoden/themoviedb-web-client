@@ -4,7 +4,10 @@ import Modal from 'styled-react-modal';
 import { connect } from 'react-redux';
 
 import Auth from './Auth';
-import Text from '../common/Text';
+import { requestProfile } from '../../actions/apiActions';
+import { bindActionCreators } from 'redux';
+import Profile from './Profile';
+import MenuItem from '../common/MenuItem';
 
 const AuthMenuWrapper = styled.div`
     display: flex;
@@ -15,54 +18,41 @@ const AuthMenuWrapper = styled.div`
     height: 48px;
 `;
 
-const LogIn = styled(Text)`
-    padding: 16px;
-    color: white;
-    cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
-const Profile = styled(Text)`
-    padding: 16px;
-    color: white;
-    cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ profile }) => ({
+    profile
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    
+    requestProfile: bindActionCreators(requestProfile, dispatch)
 });
 
 class AuthMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { isOpen: false };
-        this.handleModalVisibility = this.handleModalVisibility.bind(this)
+        this.state = { 
+            isAuthModalOpen: false
+        };
     }
 
-    handleModalVisibility() {
-        this.setState({ isOpen: !this.state.isOpen })
+    componentWillMount() {
+        sessionStorage.getItem('sessionId') && this.props.requestProfile();
+    }
+
+    handleModalVisibility(isOpen) {
+        this.setState({ isOpen });
     }
 
     render() {
         return (
             <AuthMenuWrapper>
                 {
-                    this.props.auth.sessionId ?
-                    <Profile>{}</Profile> :
-                    <LogIn onClick={this.handleModalVisibility}>Log in</LogIn>
+                    sessionStorage.getItem('sessionId') ?
+                    <Profile profile={this.props.profile} /> :
+                    <MenuItem onClick={() => this.handleModalVisibility(true)}>Log in</MenuItem>
                 }
-                <Modal isOpen={this.state.isOpen} onBackgroundClick={this.handleModalVisibility}>
+                <Modal 
+                    isOpen={this.state.isAuthModalOpen && !this.props.profile} 
+                    onBackgroundClick={() => this.handleModalVisibility(false)}>
                     <Auth />
                 </Modal>
             </AuthMenuWrapper>

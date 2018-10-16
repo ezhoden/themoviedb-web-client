@@ -24,3 +24,7 @@ export const requestAuth = (login, password) => ({
         password
     }
 });
+
+export const requestProfile = () => ({
+    type: actionTypes.PROFILE_REQUESTED
+});

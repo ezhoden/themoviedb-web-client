@@ -6,7 +6,7 @@ import get from 'lodash-es/get';
 import { ModalProvider } from 'styled-react-modal';
 
 import { requestMovie } from '../../actions/apiActions';
-import MovieList from './MovieList';
+import MovieList from '../common/MovieList';
 import Search from './Search';
 import AuthMenu from './AuthMenu';
 
