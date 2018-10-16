@@ -6,6 +6,7 @@ import MainPage from './main/MainPage';
 import mainTheme from '../constants/mainTheme';
 import DetailsPage from './details/DetailsPage';
 import CreditsPage from './credits/CreditsPage';
+import ProfilePage from './profile/ProfilePage';
 
 injectGlobal`
     body {
@@ -20,6 +21,7 @@ const App = () => (
             <Route exact path="/" component={MainPage} />
             <Route path="/movie/:movieId/credits" component={CreditsPage} />
             <Route path="/movie/:movieId" component={DetailsPage} />
+            <Route path="/profile" component={ProfilePage} />
         </Switch>
     </ThemeProvider>
 );

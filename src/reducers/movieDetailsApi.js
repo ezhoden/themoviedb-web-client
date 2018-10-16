@@ -3,7 +3,8 @@ import actionTypes from '../constants/actionTypes';
 const initialState = {
     details: null,
     recommendations: [],
-    credits: null
+    credits: null,
+    error: null
 };
 
 const movieDetailsApi = (state = initialState, action) => {
@@ -18,7 +19,10 @@ const movieDetailsApi = (state = initialState, action) => {
                 credits
             };
         case actionTypes.DETAILS_FAILED:
-            return state;
+            return {
+                ...state,
+                error: action.payload.error
+            };
         default:
             return state;
     }

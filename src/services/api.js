@@ -40,6 +40,9 @@ export const getSessionId = (request_token) =>
         { request_token }
     );
 
+export const getProfile = (sessionId) =>
+    callApi(`${API_ROOT}/account?api_key=${API_KEY}&session_id=${sessionId}`);
+
 const getLink = (params) => {
     let link = '';
     params && Object.keys(params).map((key) => {

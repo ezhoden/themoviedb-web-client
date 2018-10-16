@@ -7,6 +7,7 @@ import { requestDetails } from '../../actions/apiActions';
 import MovieDetails from './MovieDetails';
 import Credits from './Credits';
 import Recommendations from './Recommendations';
+import ErrorPage from '../common/ErrorPage';
 
 const DetailsPageWrapper = styled.div`
     background-color: ${({ theme }) => theme.altGray};
@@ -36,14 +37,15 @@ class DetailsPage extends React.Component {
      }
 
     render() {
-        return (
+        return !this.props.movieDetailsApi.error ?
+        (
             <DetailsPageWrapper>
                 <MovieDetails movie={this.props.movieDetailsApi} />
                 <Credits credits={this.props.movieDetailsApi.credits} 
                     movieId={this.props.match.params.movieId} />
                 <Recommendations recommendations={this.props.movieDetailsApi.recommendations.results} />
             </DetailsPageWrapper>
-        )
+        ) : <ErrorPage error={this.props.movieDetailsApi.error} />;
     }
 }
 

@@ -9,6 +9,10 @@ function* requestMovieDetails(request) {
         const details = yield call(getMovieDetails, id);
         const recommendations = yield call(getMovieRecommendations, id);
         const credits = yield call(getMovieCredits, id);
+        const err = details.status_message || details.status_message || details.status_message || false;
+        if (err != false) {
+            throw err;
+        }
         yield put({
             type: actionTypes.DETAILS_SUCCEEDED,
             payload: {
@@ -17,11 +21,11 @@ function* requestMovieDetails(request) {
                 credits
             }
         });
-    } catch (e) {
+    } catch (error) {
         yield put({
             type: actionTypes.DETAILS_FAILED,
             payload: {
-
+                error
             }
         });
     }
