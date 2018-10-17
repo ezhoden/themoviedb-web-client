@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ErrorPageWrapper = styled.h1`
+    margin: 0;
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme.altGray};
