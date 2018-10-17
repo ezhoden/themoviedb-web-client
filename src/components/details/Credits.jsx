@@ -6,7 +6,7 @@ import HoriontalScroll from './HoriontalScroll';
 import Title from '../common/Title';
 import VerticalCard from '../common/VerticalCard';
 import cardSizes from '../../constants/cardSizes';
-import { getCardData } from '../../utils/cardDataUtils';
+import { getVerticalCardData } from '../../utils/cardDataUtils';
 
 const CreditsWrapper = styled.div`
     width: 90%;
@@ -30,7 +30,7 @@ const Credits = ({ credits, movieId }) => (
                 <CreditsVerticalCard key={index}>
                     <VerticalCard
                         cardSize={cardSizes.MEDIUM}
-                        data={getCardData(actor)} />
+                        data={getVerticalCardData(actor)} />
                 </CreditsVerticalCard>
             )}
         </HoriontalScroll>

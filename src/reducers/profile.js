@@ -8,6 +8,8 @@ const profile = (state = null, action) => {
             return action.payload.profile;
         case actionTypes.PROFILE_FAILED:
             return state;
+        case actionTypes.PROFILE_REMOVED:
+            return null;
         default:
             return state;
     }

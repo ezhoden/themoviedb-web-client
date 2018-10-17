@@ -38,10 +38,10 @@ class AuthMenu extends React.Component {
         sessionStorage.getItem('sessionId') && this.props.requestProfile();
     }
 
-    handleModalVisibility(isOpen) {
-        this.setState({ isOpen });
+    handleModalVisibility = (isAuthModalOpen) => {
+        this.setState({ isAuthModalOpen });
     }
-
+    
     render() {
         return (
             <AuthMenuWrapper>

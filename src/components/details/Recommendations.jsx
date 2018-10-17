@@ -5,7 +5,7 @@ import HoriontalScroll from './HoriontalScroll';
 import Title from '../common/Title';
 import cardSizes from '../../constants/cardSizes';
 import ClickableVerticalCard from '../common/ClickableVerticalCard';
-import { getCardData } from '../../utils/cardDataUtils';
+import { getVerticalCardData } from '../../utils/cardDataUtils';
 
 const CreditsWrapper = styled.div`
     width: 90%;
@@ -21,7 +21,7 @@ const Recommendations = ({ recommendations }) => (
                 <ClickableVerticalCard
                     key={index}
                     cardSize={cardSizes.MEDIUM}
-                    data={getCardData(movie)}
+                    data={getVerticalCardData(movie)}
                     link={`/movie/${movie.id}`}
                     clickable={true} />
             )}

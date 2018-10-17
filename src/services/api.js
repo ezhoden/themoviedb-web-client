@@ -43,6 +43,15 @@ export const getSessionId = (request_token) =>
 export const getProfile = (sessionId) =>
     callApi(`${API_ROOT}/account?api_key=${API_KEY}&session_id=${sessionId}`);
 
+export const getFavorites = (page, sessionId, accountId) =>
+    callApi(`${API_ROOT}/account/${console.log('acc id', accountId)}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`);
+
+export const getRatings = (page, sessionId, accountId) =>
+    callApi(`${API_ROOT}/account/${accountId}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`);
+
+export const getAccountStates = (movieId, sessionId) =>
+    callApi(`${API_ROOT}/movie/${movieId}/account_states?api_key=${API_KEY}&session_id=${sessionId}`);
+
 const getLink = (params) => {
     let link = '';
     params && Object.keys(params).map((key) => {
