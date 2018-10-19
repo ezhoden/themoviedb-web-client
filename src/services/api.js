@@ -44,7 +44,7 @@ export const getProfile = (sessionId) =>
     callApi(`${API_ROOT}/account?api_key=${API_KEY}&session_id=${sessionId}`);
 
 export const getFavorites = (page, sessionId, accountId) =>
-    callApi(`${API_ROOT}/account/${console.log('acc id', accountId)}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`);
+    callApi(`${API_ROOT}/account/${accountId}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`);
 
 export const getRatings = (page, sessionId, accountId) =>
     callApi(`${API_ROOT}/account/${accountId}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}&page=${page}`);

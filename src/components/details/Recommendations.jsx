@@ -15,7 +15,7 @@ const CreditsWrapper = styled.div`
 
 const Recommendations = ({ recommendations }) => (
     <CreditsWrapper>
-        <Title>Recommendations:</Title>
+        <Title>{recommendations && recommendations.length > 0 && 'Recommendations:'}</Title>
         <HoriontalScroll>
             {recommendations && recommendations.map((movie, index) => index < 10 &&
                 <ClickableVerticalCard
