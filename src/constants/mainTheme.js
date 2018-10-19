@@ -16,6 +16,8 @@ export default {
     defaultBorderRadius: '8px',
     smallTextSize:'12px',
     defaultTextSize: '14px',
-    defaultTitleSize: '18px'
+    defaultTitleSize: '18px',
+    categoryHoverBorder: '2px #AAA solid',
+    categoryActiveBorder: '2px #62BAD9 solid'
 };
 

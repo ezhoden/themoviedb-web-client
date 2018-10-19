@@ -15,7 +15,6 @@ const MovieDetailsWrapperSolid = styled.div`
     background: linear-gradient(to right, rgba(16, 0, 16, 0.7), rgba(16, 0, 16, 0.8));
     height: 100%;
     width: 100%;
-    padding: 16px;
     display: flex;
     flex-direction: row;
     align-items: center;

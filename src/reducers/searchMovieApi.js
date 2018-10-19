@@ -25,7 +25,7 @@ const searchMovieApi = (state = initialState, action) => {
             const { page, results } = action.payload;
             return {
                 ...state,
-                results: state.results.concat(results),
+                results: page === 1 ? results : state.results.concat(results),
                 page,
                 loading: false
             };

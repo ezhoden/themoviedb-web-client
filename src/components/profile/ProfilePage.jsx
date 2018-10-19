@@ -8,6 +8,7 @@ import Title from '../common/Title';
 import MovieList from '../common/MovieList';
 import requestTypes from '../../constants/requestTypes';
 import MovieCard from './MovieCard';
+import Categories from './Categories';
 
 const ProfilePageWrapper = styled.div`
     background-color: ${({ theme }) => theme.altGray};
@@ -30,24 +31,23 @@ const mapDispatchToProps = (dispatch) => ({
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { requestType: requestTypes.FAVORITES }
+        this.state = { category: requestTypes.FAVORITES }
     }
 
     componentWillMount() {
         const sessionId = sessionStorage.getItem('sessionId');
         if (sessionId) {
             this.props.requestProfile();
-            //  реквест фильма происходит раньше респонса профиля, поэтому не реквестит фильмы
-            this.props.requestMovie(1, this.state.requestType, null, this.props.profile && this.props.profile.id);
+            this.props.requestMovie(1, this.state.category);
         }
     }
 
     requestMoreMovies = () => {
-        this.props.requestMovie(this.props.searchMovieApi.page + 1, this.state.requestType);
+        this.props.requestMovie(this.props.searchMovieApi.page + 1, this.state.category);
     }
 
-    handleRequestTypeChange = (requestType) => {
-        this.setState({ requestType });
+    handleCategoryChange = (category) => {
+        this.setState({ category }, () => this.props.requestMovie(1, category));
     }
 
     render() {
@@ -59,6 +59,7 @@ class ProfilePage extends React.Component {
         return (
             <ProfilePageWrapper>
                 <Title>{this.props.profile && this.props.profile.username}</Title>
+                <Categories active={this.state.category} onCategoryChange={this.handleCategoryChange} />
                 <MovieList movies={movies} handleMovieRequesting={this.requestMoreMovies} />
             </ProfilePageWrapper>
         )
