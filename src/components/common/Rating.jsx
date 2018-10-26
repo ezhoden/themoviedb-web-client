@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { rateMovie } from '../../services/api';
+import { rateMovie, deleteRating } from '../../services/api';
 
 const RatingWrapper = styled.div`
     display: flex;
@@ -24,7 +24,7 @@ class Rating extends React.Component {
     }
 
     handleRatingChange = (value) => {
-        rateMovie(this.props.movieId, value);
+        value > 0 ? rateMovie(this.props.movieId, value) : deleteRating(this.props.movieId);
     }
 
     render() {
@@ -32,7 +32,7 @@ class Rating extends React.Component {
             <RatingWrapper>
                 Your rating
                 <RatingSelect value={this.props.rating} onChange={(e) => this.handleRatingChange(e.target.value)}>
-                    <option key="0" value={false}>-</option>
+                    <option key="0" value={0}>-</option>
                     {this.getRatingOptions()}
                 </RatingSelect>
             </RatingWrapper>

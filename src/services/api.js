@@ -11,6 +11,10 @@ const callPostWithBody = async (url, body) => (await fetch(url, {
     }
 })).json();
 
+const callDeleteApi = async (url) => (await fetch(url, {
+    method: 'delete'
+})).json();
+
 export const getTrendingMovies = (params) =>
     callApi(`${API_ROOT}/trending/movie/week?api_key=${API_KEY}${getLink(params)}`);
 
@@ -64,6 +68,9 @@ export const rateMovie = (movieId, value) =>
         `${API_ROOT}/movie/${movieId}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`,
         { value }
     );
+
+export const deleteRating = (movieId) =>
+    callDeleteApi(`${API_ROOT}/movie/${movieId}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`);
 
 const getLink = (params) => {
     let link = '';
