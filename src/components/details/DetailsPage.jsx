@@ -17,8 +17,9 @@ const DetailsPageWrapper = styled.div`
     align-items: center;
 `;
 
-const mapStateToProps = ({ movieDetailsApi }) => ({
-    movieDetailsApi
+const mapStateToProps = ({ movieDetailsApi, profile }) => ({
+    movieDetailsApi,
+    profile
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -41,7 +42,8 @@ class DetailsPage extends React.Component {
         (
             <DetailsPageWrapper>
                 <MovieDetails movie={this.props.movieDetailsApi} />
-                <Credits credits={this.props.movieDetailsApi.credits} 
+                <Credits 
+                    credits={this.props.movieDetailsApi.credits} 
                     movieId={this.props.match.params.movieId} />
                 <Recommendations recommendations={this.props.movieDetailsApi.recommendations.results} />
             </DetailsPageWrapper>

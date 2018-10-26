@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { rateMovie } from '../../services/api';
 
 const RatingWrapper = styled.div`
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding-left: 8px;
+    padding: 8px;
 `;
 
 const RatingSelect = styled.select`
@@ -15,17 +18,21 @@ class Rating extends React.Component {
     getRatingOptions = () => {
         const options = [];
         for (let i = 1; i <= 10; i++) {
-            this.props.rating && this.props.rating == i && options.push(<option key={i} value={i}>{i}</option>);
+            options.push(<option key={i} value={i}>{i}</option>);
         }
         return options;
+    }
+
+    handleRatingChange = (value) => {
+        rateMovie(this.props.movieId, value);
     }
 
     render() {
         return (
             <RatingWrapper>
                 Your rating
-                <RatingSelect value={this.props.rating}>
-                    <option key="0">-</option>
+                <RatingSelect value={this.props.rating} onChange={(e) => this.handleRatingChange(e.target.value)}>
+                    <option key="0" value={false}>-</option>
                     {this.getRatingOptions()}
                 </RatingSelect>
             </RatingWrapper>

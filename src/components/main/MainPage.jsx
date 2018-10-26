@@ -8,7 +8,7 @@ import { requestMovie } from '../../actions/apiActions';
 import MovieList from '../common/MovieList';
 import Search from './Search';
 import AuthMenu from './AuthMenu';
-import { isExpiredSession, deleteSession } from '../../utils/sessionUtils';
+import { isExpiredSession, removeSession } from '../../utils/sessionUtils';
 import { getVerticalCardData } from '../../utils/cardDataUtils';
 import cardSizes from '../../constants/cardSizes';
 import ClickableVerticalCard from '../common/ClickableVerticalCard';
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
 class MainPage extends React.Component {
     componentDidMount() {
         this.props.requestMovie();
-        isExpiredSession() && deleteSession();
+        isExpiredSession() && removeSession();
     }
 
     requestMoreMovies = () => {

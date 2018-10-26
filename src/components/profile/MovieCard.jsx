@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { API_IMG_SIZES } from '../../constants/apiConfig';
 import { getImageResourcePath } from '../../utils/resourcePathUtils';
 import Card from '../common/Card';
-import Options from './Options';
+import Option from './Option';
 
 export const MovieCardWrapper = styled(Card)`
     width: 70vw;
-    height: 25vh;
+    height: 13vh;
     margin: 4px;
 `;
 
@@ -37,23 +37,17 @@ const MovieCardTitle = styled(Link)`
 const MovieCardOverview = styled.span`
     font-size: ${({ theme }) => theme.defaultTextSize};
     color: ${({ theme }) => theme.lightGray};
+    overflow: hidden;
 `;
 
-const OptionsWrapper = styled.span`
-    position: absolute;
-    bottom: 12px;
-`;
-
-const MovieCard = ({ movie }) => (
+const MovieCard = ({ movie, isFavorite }) => (
     <MovieCardWrapper>
         <MovieCardImage src={movie && getImageResourcePath(movie.poster_path, API_IMG_SIZES.MID)} />
         <MovieInfo>
             <MovieCardTitle to={`/movie/${movie && movie.id}`}>{movie.title}</MovieCardTitle>
             <MovieCardOverview>{movie.overview}</MovieCardOverview>
-            <OptionsWrapper>
-                <Options  />
-            </OptionsWrapper>
         </MovieInfo>
+        <Option isFavorite={isFavorite} movieId={movie.id} rating={movie.rating} />
     </MovieCardWrapper>
 );
 

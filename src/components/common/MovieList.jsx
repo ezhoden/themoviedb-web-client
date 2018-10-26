@@ -2,10 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { get } from 'lodash-es';
 
-import cardSizes from '../../constants/cardSizes';
-import { getVerticalCardData } from '../../utils/cardDataUtils';
-import ClickableVerticalCard from '../common/ClickableVerticalCard';
-
 const MovieListWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;

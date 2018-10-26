@@ -4,7 +4,8 @@ const initialState = {
     details: null,
     recommendations: [],
     credits: null,
-    error: null
+    error: null,
+    accountStates: null
 };
 
 const movieDetailsApi = (state = initialState, action) => {
@@ -12,11 +13,12 @@ const movieDetailsApi = (state = initialState, action) => {
         case actionTypes.DETAILS_REQUESTED:
             return initialState;
         case actionTypes.DETAILS_SUCCEEDED:
-            const { details, recommendations, credits } = action.payload;
+            const { details, recommendations, credits, accountStates } = action.payload;
             return {
                 details,
                 recommendations,
-                credits
+                credits,
+                accountStates
             };
         case actionTypes.DETAILS_FAILED:
             return {

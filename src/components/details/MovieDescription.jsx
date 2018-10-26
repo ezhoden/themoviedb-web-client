@@ -5,6 +5,8 @@ import Title from '../common/Title';
 import Subtitle from '../common/Subtitle';
 import Text from '../common/Text';
 import GenreList from './GenreList';
+import Favorite from '../common/Favorite';
+import Rating from '../common/Rating';
 
 const MovieDescriptionWrapper = styled.div`
     width: 70%;
@@ -30,7 +32,7 @@ const BoldText = styled(Text)`
     font-weight: bold;
 `;
 
-const MovieDescription = ({ details }) => (
+const MovieDescription = ({ details, accountStates }) => (
     <MovieDescriptionWrapper>
         <Title>{details.title} <YearTitle>({details.release_date.substr(0, 4)})</YearTitle></Title>
         <Text><BoldText>Rating: </BoldText>{details.vote_average} ({details.vote_count} votes)</Text>
@@ -43,6 +45,14 @@ const MovieDescription = ({ details }) => (
                 <Text><BoldText>Revenue: </BoldText>{details.revenue}$</Text>
                 <Text><BoldText>Runtime: </BoldText>{details.runtime} min.</Text>
             </VerticalWrapper>
+        </HorizontalWrapper>
+        <HorizontalWrapper>
+            <Favorite 
+                movieId={details.id}
+                isFavorite={accountStates.favorite} />
+            <Rating 
+                rating={accountStates.rated.value}
+                movieId={details.id} />
         </HorizontalWrapper>
     </MovieDescriptionWrapper>
 );

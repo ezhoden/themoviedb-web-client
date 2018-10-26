@@ -12,10 +12,10 @@ const Category = styled.span`
     font-weight: bold;
     height: 100%;
     margin-left: 16px;
-    border-bottom: ${({ active, theme }) => active && theme.categoryActiveBorder};
+    border-bottom: ${({ active, theme }) => active && theme.activeBorder};
 
     &:hover {
-        border-bottom: ${({ active, theme }) => !active && theme.categoryHoverBorder};
+        border-bottom: ${({ active, theme }) => !active && theme.hoverBorder};
     }
 `;
 
