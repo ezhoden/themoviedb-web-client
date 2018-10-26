@@ -17,7 +17,7 @@ export default {
     smallTextSize:'12px',
     defaultTextSize: '14px',
     defaultTitleSize: '18px',
-    categoryHoverBorder: '2px #AAA solid',
-    categoryActiveBorder: '2px #62BAD9 solid'
+    hoverBorder: '2px #AAA solid',
+    activeBorder: '2px #62BAD9 solid'
 };
 

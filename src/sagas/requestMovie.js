@@ -3,26 +3,26 @@ import { put, throttle, call } from 'redux-saga/effects';
 import actionTypes from '../constants/actionTypes';
 import { getTrendingMovies, getSearchedMovies, getFavorites, getRatings, getProfile } from '../services/api';
 import requestTypes from '../constants/requestTypes';
+import { getSessionId } from '../utils/sessionUtils';
 
 function* getMovies(params) {
-    const { page, requestType, query, accountId } = params;
-    const sessionId = sessionStorage.getItem('sessionId')
+    const { page, requestType, query } = params;
     switch (requestType) {
         case requestTypes.TRENDS:
             return yield call(getTrendingMovies, { page });
         case requestTypes.SEARCH:
             return yield call(getSearchedMovies, { page, query });
         case requestTypes.FAVORITES:
-            return yield call(getFavorites, page, sessionId, accountId);
+            return yield call(getFavorites, page);
         case requestTypes.RATINGS:
-            return yield call(getRatings, page, sessionId, accountId);
+            return yield call(getRatings, page);
     }
 }
 
 function* requestMovie(request) {
     try {
         if (request.payload.requestType === requestTypes.FAVORITES || request.requestType === requestTypes.RATINGS) {
-            const profile = yield call(getProfile, sessionStorage.getItem('sessionId'));
+            const profile = yield call(getProfile, getSessionId());
             request.payload.accountId = profile.id;
         }
         const response = yield call(getMovies, request.payload);

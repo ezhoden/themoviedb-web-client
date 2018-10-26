@@ -8,6 +8,7 @@ import { requestProfile } from '../../actions/apiActions';
 import { bindActionCreators } from 'redux';
 import Profile from './Profile';
 import MenuItem from '../common/MenuItem';
+import { getSessionId } from '../../utils/sessionUtils';
 
 const AuthMenuWrapper = styled.div`
     display: flex;
@@ -35,7 +36,7 @@ class AuthMenu extends React.Component {
     }
 
     componentWillMount() {
-        sessionStorage.getItem('sessionId') && this.props.requestProfile();
+        getSessionId() && this.props.requestProfile();
     }
 
     handleModalVisibility = (isAuthModalOpen) => {
@@ -46,7 +47,7 @@ class AuthMenu extends React.Component {
         return (
             <AuthMenuWrapper>
                 {
-                    sessionStorage.getItem('sessionId') ?
+                    getSessionId() ?
                     <Profile profile={this.props.profile} /> :
                     <MenuItem onClick={() => this.handleModalVisibility(true)}>Log in</MenuItem>
                 }

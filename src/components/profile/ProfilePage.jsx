@@ -9,6 +9,7 @@ import MovieList from '../common/MovieList';
 import requestTypes from '../../constants/requestTypes';
 import MovieCard from './MovieCard';
 import Categories from './Categories';
+import { getSessionId } from '../../utils/sessionUtils';
 
 const ProfilePageWrapper = styled.div`
     background-color: ${({ theme }) => theme.altGray};
@@ -35,7 +36,7 @@ class ProfilePage extends React.Component {
     }
 
     componentWillMount() {
-        const sessionId = sessionStorage.getItem('sessionId');
+        const sessionId = getSessionId();
         if (sessionId) {
             this.props.requestProfile();
             this.props.requestMovie(1, this.state.category);
@@ -47,14 +48,16 @@ class ProfilePage extends React.Component {
     }
 
     handleCategoryChange = (category) => {
-        this.setState({ category }, () => this.props.requestMovie(1, category));
+        this.setState({ category });
+        this.props.requestMovie(1, category);
     }
 
     render() {
         const movies = this.props.searchMovieApi.results.map((movie, index) =>
             <MovieCard
                 index={index}
-                movie={movie} />
+                movie={movie}
+                isFavorite={this.state.category === requestTypes.FAVORITES ? true : undefined} />
         );
         return (
             <ProfilePageWrapper>

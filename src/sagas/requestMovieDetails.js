@@ -1,7 +1,8 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 
 import actionTypes from '../constants/actionTypes';
-import { getMovieDetails, getMovieRecommendations, getMovieCredits } from '../services/api';
+import { getMovieDetails, getMovieRecommendations, getMovieCredits, getAccountStates } from '../services/api';
+import { getSessionId } from '../utils/sessionUtils';
 
 function* requestMovieDetails(request) {
     try {
@@ -9,7 +10,8 @@ function* requestMovieDetails(request) {
         const details = yield call(getMovieDetails, id);
         const recommendations = yield call(getMovieRecommendations, id);
         const credits = yield call(getMovieCredits, id);
-        const err = details.status_message || details.status_message || details.status_message || false;
+        const err = details.status_message || false;
+        const accountStates = yield call(getAccountStates, id, getSessionId());
         if (err != false) {
             throw err;
         }
@@ -18,7 +20,8 @@ function* requestMovieDetails(request) {
             payload: {
                 details,
                 recommendations,
-                credits
+                credits,
+                accountStates
             }
         });
     } catch (error) {

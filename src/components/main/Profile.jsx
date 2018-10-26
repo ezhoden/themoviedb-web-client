@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import MenuItem from '../common/MenuItem';
-import { deleteSession } from '../../utils/sessionUtils';
+import { removeSession } from '../../utils/sessionUtils';
 import { removeProfile } from '../../actions/apiActions';
 
 const ProfileWrapper = styled.div`
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Profile extends React.Component {
     logOut = () => {
-        deleteSession();
+        removeSession();
         this.props.removeProfile();
     }
 

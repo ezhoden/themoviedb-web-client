@@ -1,8 +1,8 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 
 import actionTypes from '../constants/actionTypes';
-import { getRequestToken, getSessionWithLogin, getSessionId } from '../services/api';
-import { saveSession } from '../utils/sessionUtils';
+import { getRequestToken, getSessionWithLogin, getSession } from '../services/api';
+import { setSession } from '../utils/sessionUtils';
 import { requestProfile } from '../actions/apiActions';
 
 function* requestAuth(request) {
@@ -12,8 +12,8 @@ function* requestAuth(request) {
         const { success, expires_at, request_token } = yield call(getSessionWithLogin, login, password, token.request_token);
         if (success) {
             const requestToken = request_token;
-            const { session_id } = yield call(getSessionId, requestToken);
-            saveSession(session_id, expires_at);
+            const { session_id } = yield call(getSession, requestToken);
+            setSession(session_id, expires_at);
             const sessionId = session_id;
             yield put({
                 type: actionTypes.AUTH_SUCCEEDED,
