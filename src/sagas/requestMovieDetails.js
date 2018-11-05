@@ -11,7 +11,8 @@ function* requestMovieDetails(request) {
         const recommendations = yield call(getMovieRecommendations, id);
         const credits = yield call(getMovieCredits, id);
         const err = details.status_message || false;
-        const accountStates = yield call(getAccountStates, id, getSessionId());
+        const sessionId = getSessionId();
+        const accountStates = yield sessionId && call(getAccountStates, id, sessionId);
         if (err != false) {
             throw err;
         }

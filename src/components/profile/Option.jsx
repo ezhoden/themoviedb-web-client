@@ -6,6 +6,7 @@ import Rating from '../common/Rating';
 
 const OptionWrapper = styled.div`
     display: flex;
+    align-items: center;
 `;
 
 const Option = ({ isFavorite, rating, movieId }) => (

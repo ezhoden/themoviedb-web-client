@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { rateMovie, deleteRating } from '../../services/api';
+import { getSessionId } from '../../utils/sessionUtils';
 
 const RatingWrapper = styled.div`
     display: flex;
@@ -24,13 +25,16 @@ class Rating extends React.Component {
     }
 
     handleRatingChange = (value) => {
-        value > 0 ? rateMovie(this.props.movieId, value) : deleteRating(this.props.movieId);
+        if (getSessionId()) {
+            value > 0 ? rateMovie(this.props.movieId, value) : deleteRating(this.props.movieId);
+        } else {
+            alert('Authorization required');
+        }
     }
 
     render() {
         return (
             <RatingWrapper>
-                Your rating
                 <RatingSelect value={this.props.rating} onChange={(e) => this.handleRatingChange(e.target.value)}>
                     <option key="0" value={0}>-</option>
                     {this.getRatingOptions()}
