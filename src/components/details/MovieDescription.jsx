@@ -17,6 +17,7 @@ const MovieDescriptionWrapper = styled.div`
 
 const HorizontalWrapper = styled.div`
     display: flex;
+    align-items: center;
 `;
 
 const VerticalWrapper = styled.div`
@@ -34,8 +35,19 @@ const BoldText = styled(Text)`
 
 const MovieDescription = ({ details, accountStates }) => (
     <MovieDescriptionWrapper>
-        <Title>{details.title} <YearTitle>({details.release_date.substr(0, 4)})</YearTitle></Title>
+        <HorizontalWrapper>
+            <Title>{details.title} <YearTitle>({details.release_date.substr(0, 4)})</YearTitle></Title>
+            <Favorite
+                movieId={details.id}
+                isFavorite={accountStates && accountStates.favorite} />
+        </HorizontalWrapper>
         <Text><BoldText>Rating: </BoldText>{details.vote_average} ({details.vote_count} votes)</Text>
+        <HorizontalWrapper>
+            <BoldText>Your rating: </BoldText>
+            <Rating
+                rating={accountStates && accountStates.rated.value}
+                movieId={details.id} />
+        </HorizontalWrapper>
         <Subtitle>Overview</Subtitle>
         <Text>{details.overview}</Text>
         <HorizontalWrapper>
@@ -45,14 +57,6 @@ const MovieDescription = ({ details, accountStates }) => (
                 <Text><BoldText>Revenue: </BoldText>{details.revenue}$</Text>
                 <Text><BoldText>Runtime: </BoldText>{details.runtime} min.</Text>
             </VerticalWrapper>
-        </HorizontalWrapper>
-        <HorizontalWrapper>
-            <Favorite 
-                movieId={details.id}
-                isFavorite={accountStates.favorite} />
-            <Rating 
-                rating={accountStates.rated.value}
-                movieId={details.id} />
         </HorizontalWrapper>
     </MovieDescriptionWrapper>
 );

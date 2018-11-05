@@ -45,7 +45,7 @@ module.exports = {
             template: 'src/index.html'
         }),
         new CopyWebpackPlugin([
-            { from: './src/assets/*', to: './dist/assets' }
+            { from: './src/assets/*', to: './assets' }
         ])
     ]
 };

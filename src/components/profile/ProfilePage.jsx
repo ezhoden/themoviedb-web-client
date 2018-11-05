@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -61,6 +62,7 @@ class ProfilePage extends React.Component {
         );
         return (
             <ProfilePageWrapper>
+                {!getSessionId() && <Redirect to="/" />}
                 <Title>{this.props.profile && this.props.profile.username}</Title>
                 <Categories active={this.state.category} onCategoryChange={this.handleCategoryChange} />
                 <MovieList movies={movies} handleMovieRequesting={this.requestMoreMovies} />
