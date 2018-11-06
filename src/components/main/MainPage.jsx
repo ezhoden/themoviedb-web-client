@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import get from 'lodash-es/get';
+import { ModalProvider } from 'styled-react-modal';
 
 import { requestMovie } from '../../actions/apiActions';
-import MovieList from './MovieList';
+import MovieList from '../common/MovieList';
 import Search from './Search';
+import AuthMenu from './AuthMenu';
+import { isExpiredSession, removeSession } from '../../utils/sessionUtils';
+import { getVerticalCardData } from '../../utils/cardDataUtils';
+import cardSizes from '../../constants/cardSizes';
+import ClickableVerticalCard from '../common/ClickableVerticalCard';
 
 const MainPageWrapper = styled.div`
     min-height: 100vh;
@@ -28,38 +33,36 @@ const mapDispatchToProps = (dispatch) => ({
 class MainPage extends React.Component {
     componentDidMount() {
         this.props.requestMovie();
-        window.addEventListener('scroll', this.handleInfiniteScroll);
+        isExpiredSession() && removeSession();
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleInfiniteScroll);
+    requestMoreMovies = () => {
+        const { page, type, query } = this.props.searchMovieApi;
+        this.props.requestMovie(page + 1, type, query);
     }
-
-    handleInfiniteScroll = () => {
-        if (this.isScrolledToBottom()) {
-            const { page, type, query } = this.props.searchMovieApi;
-            this.props.requestMovie(page + 1, type, query);
-        }
-    };
-
-    isScrolledToBottom = () => {
-        const scrollTop = get(document, 'documentElement.scrollTop') || document.body.scrollTop;
-        const scrollHeight = get(document, 'documentElement.scrollHeight') || document.body.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-        return Math.ceil(scrollTop + clientHeight) + 1 >= scrollHeight;
-    };
 
     render() {
+        const movies = this.props.searchMovieApi.results.map((movie, index) =>
+            <ClickableVerticalCard
+                key={index}
+                cardSize={cardSizes.BIG}
+                data={getVerticalCardData(movie)}
+                link={`/movie/${movie.id}`}
+                clickable={true} />
+        );
         return (
             <MainPageWrapper>
-                <Search />
-                <MovieList movies={this.props.searchMovieApi.results} />
+                <ModalProvider>
+                    <AuthMenu />
+                    <Search />
+                    <MovieList movies={movies} handleMovieRequesting={this.requestMoreMovies} />
+                </ModalProvider>
             </MainPageWrapper>
         );
     }
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     mapDispatchToProps
 )(MainPage);

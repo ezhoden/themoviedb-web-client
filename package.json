@@ -48,6 +48,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
-    "styled-components": "^3.4.5"
+    "styled-components": "^3.4.5",
+    "styled-react-modal": "^1.0.0"
   }
 }

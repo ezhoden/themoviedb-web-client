@@ -5,19 +5,10 @@ import { bindActionCreators } from 'redux';
 
 import { requestMovie } from '../../actions/apiActions';
 import requestTypes from '../../constants/requestTypes';
+import Input from '../common/Input';
 
-const SearchWrapper = styled.input`
+const SearchWrapper = styled(Input)`
     width: 50vw;
-    margin: 16px;
-    padding: 12px;
-    font-size: ${({ theme }) => theme.defaultTextSize};
-    border: ${({ theme }) => theme.defaultBorder};
-    border-radius: ${({ theme }) => theme.defaultBorderRadius};
-    outline: none;
-
-    &:focus {
-        border-color: ${({ theme }) => theme.lightBlue};
-    }
 `;
 
 const mapDispatchToProps = (dispatch) => ({
